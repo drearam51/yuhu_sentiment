@@ -12,15 +12,24 @@ const app = express();
 // app.use(cors());
 app.use(express.json());
 
-//Configurar CORS para permitir el frontend local
-app.use(
-  cors({
-    origin: "https://yuhu-sentiment.onrender.com", // dominio del frontend Vite
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// Lista de orígenes permitidos
+const whitelist = [
+  'https://friendly-daifuku-153eac.netlify.app', // Tu frontend en producción
+  'http://localhost:5173'                      // Tu frontend en desarrollo (o el puerto que uses)
+];
 
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Permite peticiones si el origen está en la lista blanca (o si no hay origen, como Postman)
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  }
+};
+
+app.use(cors(corsOptions));
 
 // Conexión a la base de datos
 connectDB();
