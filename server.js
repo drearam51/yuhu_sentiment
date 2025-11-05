@@ -9,7 +9,7 @@ import SentimentAgent from "./sentimentAgent.js";
 
 dotenv.config();
 const app = express();
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 //Configurar CORS para permitir el frontend local
