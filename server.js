@@ -85,7 +85,7 @@ app.get("/api/insights", async (req, res) => {
     // Métricas básicas
     const positivos = comentarios.filter(c => c.sentimiento === "positivo").length;
     const negativos = comentarios.filter(c => c.sentimiento === "negativo").length;
-    const neutros   = comentarios.filter(c => c.sentimiento === "neutral").length;
+    const neutros   = comentarios.filter(c => c.sentimiento === "neutro").length;
 
     const hombres = comentarios.filter(c => c.genero === "H").length;
     const mujeres = comentarios.filter(c => c.genero === "M").length;
